@@ -1,66 +1,38 @@
 import streamlit as st
 import pandas as pd
 
-st.set_page_config(page_title="Interactive AI TB Chatbot", layout="centered")
-st.title("Interactive AI-Based Healthcare Chatbot for Tuberculosis")
+st.set_page_config(page_title="AI TB Chatbot", layout="centered")
+st.title("AI-Based Healthcare Chatbot for Tuberculosis")
 
-url_who = "https://raw.githubusercontent.com/datasets/tuberculosis/main/data/tuberculosis.csv"
-url_open_tb = "https://raw.githubusercontent.com/datablist/sample-csv-files/main/files/t/tb.csv"
-url_xray_meta = "https://raw.githubusercontent.com/datablist/sample-csv-files/main/files/people/people-100.csv"
+url_who = "https://raw.githubusercontent.com/datablist/sample-csv-files/main/files/tuberculosis.csv"
+url_open_tb = "https://raw.githubusercontent.com/datablist/sample-csv-files/main/files/tb.csv"
+url_xray_meta = "https://raw.githubusercontent.com/datablist/sample-csv-files/main/files/people-100.csv"
 
 df_who = pd.read_csv(url_who)
 df_open_tb = pd.read_csv(url_open_tb)
 df_xray_meta = pd.read_csv(url_xray_meta)
 
-user_input = st.text_input("Ask me anything about Tuberculosis (TB):")
+def search_datasets(query):
+    query_lower = query.lower()
+    results = []
+    if 'tb' in query_lower or 'tuberculosis' in query_lower:
+        df_filtered = df_who[df_who.apply(lambda row: query_lower in str(row.values).lower(), axis=1)]
+        if not df_filtered.empty:
+            results.append("WHO Tuberculosis Data:\n" + df_filtered.head(5).to_string())
+        df_filtered2 = df_open_tb[df_open_tb.apply(lambda row: query_lower in str(row.values).lower(), axis=1)]
+        if not df_filtered2.empty:
+            results.append("Open TB Dataset:\n" + df_filtered2.head(5).to_string())
+    if 'xray' in query_lower or 'chest' in query_lower or 'image' in query_lower:
+        results.append("Sample X-ray Metadata:\n" + df_xray_meta.head(5).to_string())
+    if not results:
+        results.append("No relevant data found for your query.")
+    return "\n\n".join(results)
 
-def search_who(question):
-    question = question.lower()
-    if "cases" in question:
-        recent = df_who[df_who['Year'] == df_who['Year'].max()]
-        result = recent[['Country', 'New cases']]
-        return "TB Cases (Latest Year):\n" + result.to_string(index=False)
-    if "deaths" in question:
-        recent = df_who[df_who['Year'] == df_who['Year'].max()]
-        result = recent[['Country', 'Deaths']]
-        return "TB Deaths (Latest Year):\n" + result.to_string(index=False)
-    if "incidence" in question:
-        recent = df_who[df_who['Year'] == df_who['Year'].max()]
-        result = recent[['Country', 'Incidence']]
-        return "TB Incidence (Latest Year):\n" + result.to_string(index=False)
-    return ""
-
-def search_open_tb(question):
-    question = question.lower()
-    if "notification" in question:
-        recent = df_open_tb[df_open_tb['Year'] == df_open_tb['Year'].max()]
-        result = recent[['Country', 'Notification']]
-        return "TB Notifications (Latest Year):\n" + result.to_string(index=False)
-    return ""
-
-def general_info(question):
-    q = question.lower()
-    facts = {
-        "symptoms": "Common symptoms: Cough > 2 weeks, fever, night sweats, weight loss, fatigue, chest pain, coughing blood.",
-        "treatment": "TB is treatable with antibiotics over 6 months. DOTS is WHO recommended treatment strategy.",
-        "prevention": "Prevent by avoiding close contact with infected people, vaccination (BCG), good ventilation.",
-        "x-ray": "Chest X-ray is used for TB diagnosis, but requires expert analysis.",
-        "cause": "TB is caused by Mycobacterium tuberculosis bacteria."
-    }
-    for k,v in facts.items():
-        if k in q:
-            return v
-    return ""
+user_input = st.text_input("Ask any question about TB or related data:")
 
 if user_input:
-    answer = search_who(user_input)
-    if not answer:
-        answer = search_open_tb(user_input)
-    if not answer:
-        answer = general_info(user_input)
-    if not answer:
-        answer = "Sorry, I don't have information on that. Please ask about TB cases, deaths, symptoms, treatment, prevention, or diagnostics."
-    st.write(answer)
+    answer = search_datasets(user_input)
+    st.text_area("Answer", answer, height=300)
 
 st.header("Symptom Checker")
 cough = st.checkbox("Cough lasting more than 2 weeks")
@@ -90,3 +62,11 @@ if xray:
 
 st.header("Sample X-ray Dataset Metadata")
 st.dataframe(df_xray_meta.head())
+
+st.header("More TB Information")
+st.markdown("""
+- TB is caused by *Mycobacterium tuberculosis*.
+- Spread through air via coughs/sneezes.
+- Symptoms include prolonged cough, fever, weight loss, and night sweats.
+- It is preventable and treatable.
+- WHO recommends DOTS strategy for control.
