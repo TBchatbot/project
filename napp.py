@@ -1,6 +1,25 @@
 import streamlit as st
 import pandas as pd
 
+df = pd.read_csv('your_tb_dataset.csv')
+
+def answer_question(question):
+    question = question.lower()
+    matched_rows = df[df.apply(lambda row: row.astype(str).str.lower().str.contains(question).any(), axis=1)]
+    if matched_rows.empty:
+        return "Sorry, no data found related to your question."
+    else:
+        return matched_rows.head(3).to_string(index=False)
+
+print("Ask me anything about Tuberculosis. Type 'exit' to quit.")
+while True:
+    q = input("Your question: ")
+    if q.strip().lower() == 'exit':
+        break
+    print(answer_question(q))
+    print()
+
+
 st.set_page_config(page_title="AI TB Chatbot", layout="centered")
 st.title("AI-Based Healthcare Chatbot for Tuberculosis")
 
