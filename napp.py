@@ -64,9 +64,11 @@ st.header("Sample X-ray Dataset Metadata")
 st.dataframe(df_xray_meta.head())
 
 st.header("More TB Information")
-st.markdown("""
-- TB is caused by *Mycobacterium tuberculosis*.
-- Spread through air via coughs/sneezes.
-- Symptoms include prolonged cough, fever, weight loss, and night sweats.
-- It is preventable and treatable.
-- WHO recommends DOTS strategy for control.
+st.markdown(
+    "- TB is caused by *Mycobacterium tuberculosis*.\n"
+    "- Spread through air via coughs/sneezes.\n"
+    "- Symptoms include prolonged cough, fever, weight loss, and night sweats.\n"
+    "- It is preventable and treatable.\n"
+    "- WHO recommends DOTS strategy for control.\n\n"
+    "[Learn More on WHO TB Page](https://www.who.int/teams/global-tuberculosis-programme)"
+)
