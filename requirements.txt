@@ -1,6 +1,1 @@
-streamlit
-googletrans==4.0.0-rc1
-langdetect
-pandas
-scikit-learn
-
+streamlit>=1.28.0
