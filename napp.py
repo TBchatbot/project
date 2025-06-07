@@ -1,7 +1,9 @@
 import pandas as pd
 import streamlit as st
 
-url = "country","iso2","iso3","iso_numeric","g_whoregion","year","e_pop_num","e_inc_100k","e_inc_100k_lo","e_inc_100k_hi","e_inc_num","e_inc_num_lo","e_inc_num_hi","e_tbhiv_prct","e_tbhiv_prct_lo","e_tbhiv_prct_hi","e_inc_tbhiv_100k","e_inc_tbhiv_100k_lo","e_inc_tbhiv_100k_hi","e_inc_tbhiv_num","e_inc_tbhiv_num_lo","e_inc_tbhiv_num_hi","e_mort_exc_tbhiv_100k","e_mort_exc_tbhiv_100k_lo","e_mort_exc_tbhiv_100k_hi","e_mort_exc_tbhiv_num","e_mort_exc_tbhiv_num_lo","e_mort_exc_tbhiv_num_hi","e_mort_tbhiv_100k","e_mort_tbhiv_100k_lo","e_mort_tbhiv_100k_hi","e_mort_tbhiv_num","e_mort_tbhiv_num_lo","e_mort_tbhiv_num_hi","e_mort_100k","e_mort_100k_lo","e_mort_100k_hi","e_mort_num","e_mort_num_lo","e_mort_num_hi","cfr","cfr_lo","cfr_hi","cfr_pct","cfr_pct_lo","cfr_pct_hi","c_newinc_100k","c_cdr","c_cdr_lo","c_cdr_hi"
+st.title("WHO TB Estimates")
+
+url = ""country","iso2","iso3","iso_numeric","g_whoregion","year","e_pop_num","e_inc_100k","e_inc_100k_lo","e_inc_100k_hi","e_inc_num","e_inc_num_lo","e_inc_num_hi","e_tbhiv_prct","e_tbhiv_prct_lo","e_tbhiv_prct_hi","e_inc_tbhiv_100k","e_inc_tbhiv_100k_lo","e_inc_tbhiv_100k_hi","e_inc_tbhiv_num","e_inc_tbhiv_num_lo","e_inc_tbhiv_num_hi","e_mort_exc_tbhiv_100k","e_mort_exc_tbhiv_100k_lo","e_mort_exc_tbhiv_100k_hi","e_mort_exc_tbhiv_num","e_mort_exc_tbhiv_num_lo","e_mort_exc_tbhiv_num_hi","e_mort_tbhiv_100k","e_mort_tbhiv_100k_lo","e_mort_tbhiv_100k_hi","e_mort_tbhiv_num","e_mort_tbhiv_num_lo","e_mort_tbhiv_num_hi","e_mort_100k","e_mort_100k_lo","e_mort_100k_hi","e_mort_num","e_mort_num_lo","e_mort_num_hi","cfr","cfr_lo","cfr_hi","cfr_pct","cfr_pct_lo","cfr_pct_hi","c_newinc_100k","c_cdr","c_cdr_lo","c_cdr_hi"
 "Afghanistan","AF","AFG","004","EMR",2000,20130323,190,122,271,38000,25000,55000,0.02,0,0.05,0.03,0,0.1,6,1,20,68,39,104,14000,7800,21000,0.17,0.1,0.26,34,19,52,68,39,104,14000,7900,21000,0.37,0.17,0.61,37,17,61,35,19,13,29
 "Afghanistan","AF","AFG","004","EMR",2001,20284311,189,122,271,38000,25000,55000,0.01,0,0.04,0.03,0,0.09,6,0,18,63,36,96,13000,7300,19000,0.3,0.06,0.72,61,13,150,63,36,96,13000,7400,20000,0.35,0.16,0.56,35,16,56,50,26,18,41
 "Afghanistan","AF","AFG","004","EMR",2002,21378110,189,122,270,40000,26000,58000,0.01,0,0.04,0.03,0,0.08,6,0,18,57,33,87,12000,7100,19000,0.27,0.06,0.66,58,12,140,57,33,87,12000,7100,19000,0.31,0.15,0.51,31,15,51,65,34,24,53
@@ -5118,8 +5120,13 @@ url = "country","iso2","iso3","iso_numeric","g_whoregion","year","e_pop_num","e_
 "Zimbabwe","ZW","ZWE","716","AFR",2020,15526885,188,132,248,29000,21000,39000,61,34,85,112,80,150,17000,12000,23000,13,8.6,18,2000,1300,2800,31,21,43,4800,3300,6700,44,32,56,6800,5000,8700,0.24,0.15,0.34,24,15,34,101,54,41,77
 "Zimbabwe","ZW","ZWE","716","AFR",2021,15797209,199,134,262,31000,21000,41000,62,32,88,120,82,166,19000,13000,26000,15,11,19,2300,1800,3000,34,22,49,5400,3500,7800,49,36,64,7800,5600,10000,0.25,0.16,0.37,25,16,37,103,52,39,77
 "Zimbabwe","ZW","ZWE","716","AFR",2022,16069054,209,139,280,34000,22000,45000,63,30,90,127,83,181,20000,13000,29000,16,10,22,2500,1600,3600,37,24,53,5900,3800,8500,52,38,69,8400,6000,11000,0.26,0.15,0.38,26,15,38,113,54,41,82
-"Zimbabwe","ZW","ZWE","716","AFR",2023,16340822,211,135,284,35000,22000,46000,62,28,90,127,80,184,21000,13000,30000,14,8.3,22,2400,1300,3600,34,22,48,5500,3600,7800,48,34,63,7900,5600,10000,0.24,0.14,0.35,24,14,35,118,56,41,87
+"Zimbabwe","ZW","ZWE","716","AFR",2023,16340822,211,135,284,35000,22000,46000,62,28,90,127,80,184,21000,13000,30000,14,8.3,22,2400,1300,3600,34,22,48,5500,3600,7800,48,34,63,7900,5600,10000,0.24,0.14,0.35,24,14,35,118,56,41,87"
 df = pd.read_csv(url)
 
-st.title("🩺 TB Healthcare Chatbot")
+st.write("Global TB Data")
 st.dataframe(df)
+
+country = st.selectbox("Select a country", df['country'].unique())
+country_data = df[df['country'] == country]
+st.write(f"Data for {country}")
+st.dataframe(country_data)
